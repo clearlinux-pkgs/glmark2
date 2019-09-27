@@ -4,19 +4,23 @@
 #
 Name     : glmark2
 Version  : 9c37ce30bf494c667a585c9840308e1514e23f65
-Release  : 2
+Release  : 3
 URL      : https://github.com/glmark2/glmark2/archive/9c37ce30bf494c667a585c9840308e1514e23f65.tar.gz
 Source0  : https://github.com/glmark2/glmark2/archive/9c37ce30bf494c667a585c9840308e1514e23f65.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0 Libpng MIT X11
-Requires: glmark2-bin
-Requires: glmark2-data
-Requires: glmark2-man
-BuildRequires : cmake
+Requires: glmark2-bin = %{version}-%{release}
+Requires: glmark2-data = %{version}-%{release}
+Requires: glmark2-license = %{version}-%{release}
+Requires: glmark2-man = %{version}-%{release}
+BuildRequires : apache-ant
+BuildRequires : buildreq-cmake
+BuildRequires : buildreq-mvn
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : libpng-dev
 BuildRequires : mesa-dev
+BuildRequires : pkgconfig(wayland-client)
 BuildRequires : python-core
 BuildRequires : systemd-dev
 Patch1: build.patch
@@ -29,8 +33,8 @@ original glmark benchmark by Ben Smith.
 %package bin
 Summary: bin components for the glmark2 package.
 Group: Binaries
-Requires: glmark2-data
-Requires: glmark2-man
+Requires: glmark2-data = %{version}-%{release}
+Requires: glmark2-license = %{version}-%{release}
 
 %description bin
 bin components for the glmark2 package.
@@ -42,6 +46,14 @@ Group: Data
 
 %description data
 data components for the glmark2 package.
+
+
+%package license
+Summary: license components for the glmark2 package.
+Group: Default
+
+%description license
+license components for the glmark2 package.
 
 
 %package man
@@ -60,8 +72,9 @@ man components for the glmark2 package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1526870614
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1569573937
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -71,9 +84,15 @@ export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-m
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 make  %{?_smp_mflags}
 
+
 %install
-export SOURCE_DATE_EPOCH=1526870614
+export SOURCE_DATE_EPOCH=1569573937
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/glmark2
+cp COPYING %{buildroot}/usr/share/package-licenses/glmark2/COPYING
+cp COPYING.SGI %{buildroot}/usr/share/package-licenses/glmark2/COPYING.SGI
+cp src/libmatrix/COPYING %{buildroot}/usr/share/package-licenses/glmark2/src_libmatrix_COPYING
+cp src/libpng/LICENSE %{buildroot}/usr/share/package-licenses/glmark2/src_libpng_LICENSE
 %make_install
 
 %files
@@ -225,8 +244,15 @@ rm -rf %{buildroot}
 /usr/share/glmark2/textures/terrain-grasslight-512-nm.jpg
 /usr/share/glmark2/textures/terrain-grasslight-512.jpg
 
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/glmark2/COPYING
+/usr/share/package-licenses/glmark2/COPYING.SGI
+/usr/share/package-licenses/glmark2/src_libmatrix_COPYING
+/usr/share/package-licenses/glmark2/src_libpng_LICENSE
+
 %files man
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/man/man1/glmark2-drm.1
 /usr/share/man/man1/glmark2-es2-drm.1
 /usr/share/man/man1/glmark2-es2-wayland.1
