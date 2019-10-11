@@ -1,0 +1,29 @@
+From 18b6e8b3c540b40d1f54f38548ac50df95d66bb1 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Fri, 11 Oct 2019 10:26:57 -0700
+Subject: [PATCH] build
+
+---
+ Makefile | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+ create mode 100644 Makefile
+
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..1ad8eec
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,9 @@
++all: glmark2
++
++
++glmark2:
++	./waf configure --with-flavors=drm-gl,drm-glesv2,wayland-gl,wayland-glesv2,x11-gl,x11-glesv2 --data-path=/usr/share/glmark2 --prefix=/usr
++	./waf
++	
++install:
++	./waf install --destdir=$(DESTDIR)
+\ No newline at end of file
+-- 
+2.23.0
+
