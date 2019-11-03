@@ -4,7 +4,7 @@
 #
 Name     : glmark2
 Version  : 24a1139dcbfd86bd02065316eaa90559e39374e1
-Release  : 4
+Release  : 5
 URL      : https://github.com/glmark2/glmark2/archive/24a1139dcbfd86bd02065316eaa90559e39374e1/24a1139dcbfd86bd02065316eaa90559e39374e1.tar.gz
 Source0  : https://github.com/glmark2/glmark2/archive/24a1139dcbfd86bd02065316eaa90559e39374e1/24a1139dcbfd86bd02065316eaa90559e39374e1.tar.gz
 Summary  : No detailed summary available
