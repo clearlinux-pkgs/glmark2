@@ -4,7 +4,7 @@
 #
 Name     : glmark2
 Version  : 24a1139dcbfd86bd02065316eaa90559e39374e1
-Release  : 5
+Release  : 6
 URL      : https://github.com/glmark2/glmark2/archive/24a1139dcbfd86bd02065316eaa90559e39374e1/24a1139dcbfd86bd02065316eaa90559e39374e1.tar.gz
 Source0  : https://github.com/glmark2/glmark2/archive/24a1139dcbfd86bd02065316eaa90559e39374e1/24a1139dcbfd86bd02065316eaa90559e39374e1.tar.gz
 Summary  : No detailed summary available
@@ -16,7 +16,6 @@ Requires: glmark2-license = %{version}-%{release}
 Requires: glmark2-man = %{version}-%{release}
 BuildRequires : apache-ant
 BuildRequires : buildreq-cmake
-BuildRequires : buildreq-mvn
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : libpng-dev
 BuildRequires : mesa-dev
@@ -65,6 +64,7 @@ man components for the glmark2 package.
 
 %prep
 %setup -q -n glmark2-24a1139dcbfd86bd02065316eaa90559e39374e1
+cd %{_builddir}/glmark2-24a1139dcbfd86bd02065316eaa90559e39374e1
 %patch1 -p1
 
 %build
@@ -72,7 +72,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570815389
+export SOURCE_DATE_EPOCH=1582928932
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -85,7 +85,7 @@ make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1570815389
+export SOURCE_DATE_EPOCH=1582928932
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/glmark2
 cp %{_builddir}/glmark2-24a1139dcbfd86bd02065316eaa90559e39374e1/COPYING %{buildroot}/usr/share/package-licenses/glmark2/8624bcdae55baeef00cd11d5dfcfa60f68710a02
